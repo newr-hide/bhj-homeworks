@@ -22,7 +22,7 @@ class Game {
       const chr = event.key
       //console.log(chr)
     
-    if (chr === this.currentSymbol.textContent) {
+    if (chr.toLowerCase() === this.currentSymbol.textContent.toLowerCase()) {
       this.success();
   } else {
       this.fail();
