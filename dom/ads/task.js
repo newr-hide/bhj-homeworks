@@ -1,33 +1,22 @@
 const rotator = document.querySelectorAll(".rotator__case")
-let currentIndex = 0;
 
-rotator.forEach((elem) => {
-const speed = elem.dataset.speed
-const color = elem.dataset.color
+const iterElement = (elem) => {
+    const speed = elem.dataset.speed
+    const color = elem.dataset.color
+    document.querySelector(".rotator__case_active").classList.remove("rotator__case_active");
+    elem.style.color = color
+    if (!elem.nextElementSibling) {
+        elem = rotator[0];
+      } else {
+        elem = elem.nextElementSibling;
+      }
+      
+      elem.classList.add("rotator__case_active")
 
-const iterElement = () => {
-
-    if (currentIndex > 0) {
-        rotator[currentIndex -1].classList.remove("rotator__case_active")
-    }
-    if (currentIndex === rotator.length) {
-        rotator[currentIndex-1].classList.remove("rotator__case_active")
-        currentIndex = 0;  
-    }
-
-    rotator[currentIndex].classList.add("rotator__case_active")
-    rotator[currentIndex].style.color = color
-    currentIndex++;   
+setTimeout(() => iterElement(elem), speed)
 }
 
-setInterval(iterElement, speed)
-})
-
-   
-  
-
-// const rotator = document.querySelectorAll(".rotator__case")
-// let currentIndex = 0;
+iterElement(rotator[0]);
 
 
 // const iterElement = () => {
@@ -46,7 +35,7 @@ setInterval(iterElement, speed)
 
 // }
 
-// setInterval(iterElement, 2000)
+
 
 
    
