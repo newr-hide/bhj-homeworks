@@ -1,30 +1,30 @@
-const taskList = document.getElementById('tasks__list')
+const tasksList = document.getElementById('tasks__list')
 const form = document.querySelector('form')
 const taskInput = document.getElementById('task__input')
 
 form.addEventListener('submit', event => {
     event.preventDefault();
-    const createTask = document.createElement('div');
-    createTask.className = 'task';
-    const createTaskTitle = document.createElement('div');
-    createTaskTitle.className = 'task__title';
-    createTaskTitle.textContent = taskInput.value;
-    const createTaskRemove = document.createElement('a');
-    createTaskRemove.className = 'task__remove';
-    createTaskRemove.textContent = '×';
+    let inputValue = taskInput.value.trim();
+    if(!inputValue) return;
     
-    taskList.appendChild(createTask);
-    createTask.appendChild(createTaskTitle);
-
-    createTask.appendChild(createTaskRemove);
+  const title = inputValue;
+   const task = tasksList.querySelector('.task')
+    
     taskInput.value = '';
-    const tasks = taskList.querySelectorAll('.task')
-    tasks.forEach((elem) => {
-        const taskRemove = elem.querySelector('.task__remove')
-        if (taskRemove) {
-            taskRemove.addEventListener('click', (event) => {
-                elem.remove();
-            })
+    tasksList.insertAdjacentHTML('afterbegin', `
+        <div class="task">
+          <div class="task__title">
+            ${title}
+          </div>
+          <a href="#" class="task__remove">&times;</a>
+        </div>
+        `);
+     
+    tasksList.addEventListener('click', (event) => {
+        const target = event.target;
+        if(target.classList.contains('task__remove')) {
+            const taskToRemove = target.closest('.task');
+            taskToRemove.remove();
         }
         
     })

@@ -6,25 +6,25 @@ hint.forEach(elem => {
     
     elem.addEventListener('click', (event)=> {
         event.preventDefault();
+        let hintText = elem.getAttribute('title');
         const tooltipShow = document.querySelector('.tooltip')
+        if (tooltipShow && tooltipShow.textContent === hintText) {
+            tooltipShow.classList.toggle('tooltip_active');
+            return;
+        }
         if (tooltipShow) {
             tooltipShow.remove();}
-        else{
-            let hintText = elem.getAttribute('title');
         
         let tooltipDiv = document.createElement('div');
-        tooltipDiv.className = 'tooltip';
+        tooltipDiv.className = 'tooltip tooltip_active';
         tooltipDiv.textContent = hintText;
         
-        
-        tooltipDiv.classList.add("tooltip_active")
-        tooltipDiv.classList.add("has-tooltip")
-        
         let rect = elem.getBoundingClientRect();
-        tooltipDiv.style.top = `${rect.bottom + window.scrollY}px`;
-        tooltipDiv.style.left = `${rect.left + window.scrollX}px`;
+        tooltipDiv.style.top = `${rect.bottom + 4}px`;
+        tooltipDiv.style.left = `${rect.left + 4}px`
+
         elem.after(tooltipDiv);
-        } 
+         
     })
 })
 

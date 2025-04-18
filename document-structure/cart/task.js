@@ -7,7 +7,7 @@ products.forEach(product => {
     const controlValue = product.querySelector('.product__quantity-value');
     controlDec.addEventListener('click', event => {
         let dec = parseInt(controlValue.textContent, 10);
-        if (dec > 0) {
+        if (dec > 1) {
         dec --;
         controlValue.textContent = dec;
     }
@@ -37,21 +37,13 @@ products.forEach(product => {
             const countElement = existingItem.querySelector('.cart__product-count');
                   countElement.textContent = parseInt(countElement.textContent) + parseInt(controlValue.textContent);
         }else {
-        const cartItem = document.createElement('div');
-              cartItem.classList.add('cart__product');
-              cartItem.dataset.id = productId;
+            cartProducts.insertAdjacentHTML('afterbegin',
+                 `<div class="cart__product" data-id="${productId}">
+                 <img class="cart__product-image" src="${imgProduct}">
+                 <div class="cart__product-count">${controlValue.textContent}</div>
+                 </div>`);
 
-        const image = document.createElement('img');
-              image.classList.add('cart__product-image');
-              image.src = imgProduct;
-              cartItem.appendChild(image);
-
-        const count = document.createElement('div');
-              count.className = 'cart__product-count';
-              count.textContent = controlValue.textContent
-              cartItem.appendChild(count);
-
-        cartProducts.appendChild(cartItem);}      
+            }     
 
     })
 })
