@@ -1,3 +1,8 @@
+.card {
+  display: flex;
+  flex-direction: column;
+}
+
 textarea {
   max-width: 100%;
   width: 100%;
@@ -6,5 +11,25 @@ textarea {
   margin: 0 0 20px 0;
   font-family: Golos, Arial, sans-serif;
   border: 1px solid #e2e2e2;
+  box-sizing: border-box;
+}
+
+.btn__card {
+  align-self: flex-end;
+  margin-bottom: 5px;
+  margin-right: 10px;
+  border-radius: 10px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+  border-style: solid;
+  border-width: 2px;
+  padding: 1px 7px 2px;
+  text-rendering: auto;
+  color: initial;
+  display: inline-block;
+  text-align: start;
+  background-color: rgb(186, 186, 186);
   box-sizing: border-box;
 }
