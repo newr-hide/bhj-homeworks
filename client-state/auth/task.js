@@ -14,35 +14,28 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         if (!login.value.length) return alert('Введите логин!');
         if (!password.value.length) return alert('Введите пароль!');
+        const xhr = new XMLHttpRequest();
+        
+        xhr.open('POST', 'https://students.netoservices.ru/nestjs-backend/auth');
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        
+        const data = JSON.stringify({
+            login: login.value,
+            password: password.value
+        });
+        xhr.responseType = 'json';
+        xhr.send(data);
 
-        try {
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'https://students.netoservices.ru/nestjs-backend/auth');
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            
-            const data = JSON.stringify({
-                login: login.value,
-                password: password.value
-            });
-
-            xhr.send(data);
-
-            xhr.onload = () => {
-                if (xhr.status === 200 || xhr.status === 201) {
-                    let responseParse = JSON.parse(xhr.responseText)
-                    if (responseParse.success ===false) {
-                        alert('Неверный логин/пароль')
-                    }else{
-                    welcome.classList.add('welcome_active')
-                    welcome.textContent += responseParse.user_id
-                    signin.classList.remove('signin_active')
-                    localStorage.setItem('user_id',responseParse.user_id)
-                console.log(xhr.responseText);}
-                } else {
-                    console.error('Ошибка:', xhr.status, xhr.responseText);
-                }
-            }}catch (err) {
-                console.error(err);
+        xhr.onload = () => {
+            const responseJSON = xhr.response;
+                if (!responseJSON.success) {
+                    alert('Неверный логин/пароль')
+                }else{
+                welcome.classList.add('welcome_active')
+                welcome.textContent += responseJSON.user_id
+                signin.classList.remove('signin_active')
+                localStorage.setItem('user_id',responseJSON.user_id)
+            console.log(xhr.responseText);}
             }
 }) 
 })
